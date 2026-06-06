@@ -1,0 +1,60 @@
+<div class="front-inner">
+  <div class="side-deco" aria-hidden="true">
+    <span class="side-deco-top"></span>
+    <span class="side-deco-mid"></span>
+    <span class="side-deco-bottom"></span>
+  </div>
+
+  <div class="front-body">
+    <div class="cie-header">
+      <span class="cie-logo">CIE</span>
+      <span class="cie-title">Carteira de<br>Identificação<br>Estudantil</span>
+    </div>
+
+    <div class="photo-wrap">
+      @if (card().photoUrl && !photoFailed()) {
+        <img [src]="card().photoUrl" [alt]="'Foto de ' + card().fullName" (error)="onPhotoError()">
+      } @else {
+        <div class="photo-placeholder" aria-label="Foto nao informada">
+          <span aria-hidden="true"></span>
+        </div>
+      }
+    </div>
+
+    <p class="person-name">{{ card().fullName }}</p>
+
+    <div class="data-row">
+      <span>{{ card().documentLabel }}:</span> {{ card().documentNumber }}<br>
+      <span>Nasc.:</span> {{ card().birthDate }}
+    </div>
+
+    <div class="course-block">
+      <p class="course">{{ card().course }}</p>
+      <p class="inst">{{ card().institution }}</p>
+    </div>
+
+    <div class="issuer-logo">
+      <strong>{{ card().issuer.acronym }}</strong><br>{{ card().issuer.name }}
+    </div>
+
+    <div class="front-footer">
+      <div class="validity-block">
+        <span class="year-big">{{ card().year }}</span>
+        <span class="valid-label">Válido até {{ card().validUntil }}</span>
+      </div>
+      <div class="code-qr-block">
+        <div class="cod-block">
+          <div class="cod-label">Cód. Uso / CIE</div>
+          <div class="cod-value">{{ card().cieCode }}</div>
+        </div>
+        <div class="qr-box">
+          @if (card().qrImageUrl) {
+            <img [src]="card().qrImageUrl" [alt]="'QR code da carteirinha de ' + card().fullName">
+          } @else {
+            <span class="qr-placeholder" aria-label="QR code aguardando imagem"></span>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

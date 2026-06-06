@@ -1,0 +1,38 @@
+.bottom-nav {
+  position: fixed;
+  z-index: 10;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px 0 calc(14px + env(safe-area-inset-bottom));
+  border-top: 1px solid #e8e8e8;
+  background: #fff;
+}
+
+.nav-item {
+  display: flex;
+  min-width: 70px;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: var(--muted);
+  font-size: 0.62rem;
+  font-weight: 500;
+  line-height: 1.2;
+
+  &.active {
+    color: var(--teal);
+  }
+}
+
+.icon {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  font-size: 1rem;
+  font-weight: 700;
+}

@@ -1,0 +1,45 @@
+<div class="back-inner">
+  <div class="back-cie-row">
+    <div>
+      <span class="cie-logo">CIE</span>
+      <span class="cie-title">Carteira de<br>Identificação<br>Estudantil</span>
+    </div>
+    <div class="issuer">
+      <strong>{{ card().issuer.acronym }}</strong><br>
+      {{ card().issuer.name }}
+    </div>
+  </div>
+
+  <div class="benefit-badge">
+    <div class="pct">{{ card().benefit.percentage }}</div>
+    <div class="desc">{{ card().benefit.description }}</div>
+  </div>
+
+  <div class="venues-list" aria-label="Locais aceitos">
+    @for (venue of card().benefit.venues; track venue) {
+      <span class="venue-pill">{{ venue }}</span>
+    }
+  </div>
+
+  <div class="legal-block">
+    {{ card().benefit.legalText }}
+  </div>
+
+  <div class="validador-block">
+    <div class="vbox">
+      <div class="vtitle">{{ card().validator.label }}</div>
+      <div class="vurl">{{ card().validator.urlText }}</div>
+    </div>
+    <div class="barcode-icon" aria-hidden="true"></div>
+  </div>
+
+  <div class="sac-row">
+    <div class="sac-icon" aria-hidden="true">☎</div>
+    <div class="sac-info">
+      <div class="sac-label">SAC</div>
+      <div class="sac-num">{{ card().supportPhone }}</div>
+    </div>
+  </div>
+
+  <p class="territory-note">Documento válido em todo o Território Nacional</p>
+</div>

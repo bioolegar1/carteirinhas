@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>CIE – Carteira Estudantil</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --teal: #1a9e96;
+    --teal-dark: #12706a;
+    --teal-light: #e6f7f6;
+    --yellow: #f5c800;
+    --green: #2a7a3b;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --bg: #f0f4f4;
+    --card-w: min(88vw, 360px);
+    --card-h: calc(var(--card-w) * 1.58);
+  }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    font-family: 'Sora', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  .app-header {
+    background: var(--teal);
+    padding: 48px 24px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    overflow: hidden;
+  }
+  .app-header::after {
+    content: '';
+    position: absolute;
+    bottom: -28px; left: 0; right: 0;
+    height: 56px;
+    background: var(--bg);
+    border-radius: 50% 50% 0 0 / 100%;
+  }
+  .header-text h1 { color: #fff; font-size: 1.45rem; font-weight: 700; letter-spacing: -.3px; }
+  .header-text p  { color: rgba(255,255,255,.75); font-size: .82rem; font-weight: 300; margin-top: 2px; }
+  .menu-btn {
+    width: 42px; height: 42px;
+    background: rgba(255,255,255,.18);
+    border: none; border-radius: 12px;
+    display: grid; place-items: center;
+    cursor: pointer; flex-shrink: 0;
+  }
+  .menu-btn span {
+    display: block; width: 18px; height: 2px;
+    background: #fff; border-radius: 2px;
+    position: relative;
+  }
+  .menu-btn span::before, .menu-btn span::after {
+    content: ''; position: absolute; left: 0;
+    width: 18px; height: 2px; background: #fff; border-radius: 2px;
+  }
+  .menu-btn span::before { top: -5px; }
+  .menu-btn span::after  { top:  5px; }
+
+  /* ── SCENE ── */
+  .scene-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 56px 0 100px;
+    gap: 28px;
+  }
+
+  .hint {
+    font-size: .72rem;
+    font-weight: 400;
+    color: var(--muted);
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 1;
+    transition: opacity .4s;
+  }
+  .hint.hidden { opacity: 0; }
+  .hint svg { width: 14px; height: 14px; }
+
+  /* ── FLIP CARD ── */
+  .card-scene {
+    width: var(--card-w);
+    height: var(--card-h);
+    perspective: 1200px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .card-inner {
+    width: 100%; height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform .65s cubic-bezier(.45,.05,.55,.95);
+    filter: drop-shadow(0 18px 40px rgba(26,158,150,.22)) drop-shadow(0 4px 12px rgba(0,0,0,.12));
+  }
+  .card-scene.flipped .card-inner {
+    transform: rotateY(180deg);
+  }
+
+  .card-face {
+    position: absolute; inset: 0;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    overflow: hidden;
+    background: #f8f9f8;
+  }
+  .card-back {
+    transform: rotateY(180deg);
+  }
+
+  /* ────────────────────────────────────────────
+     FRENTE
+  ──────────────────────────────────────────── */
+  .front-inner {
+    width: 100%; height: 100%;
+    display: flex;
+    position: relative;
+  }
+
+  /* Faixa lateral esquerda colorida */
+  .side-deco {
+    width: 18px;
+    height: 100%;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .side-deco-top    { background: var(--yellow); flex: 1.4; }
+  .side-deco-mid    { background: var(--teal);   flex: .6; }
+  .side-deco-bottom { background: var(--green);  flex: 2; }
+
+  /* Conteúdo principal */
+  .front-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 18px 14px 0 14px;
+    gap: 10px;
+    position: relative;
+  }
+
+  /* Logo CIE + título (rotacionado para leitura da carteira) */
+  .cie-header {
+    position: absolute;
+    right: 14px; top: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+  }
+  .cie-logo {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--teal);
+    line-height: 1;
+    letter-spacing: -2px;
+  }
+  .cie-title {
+    font-size: .45rem;
+    font-weight: 600;
+    color: var(--teal);
+    text-align: right;
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
+
+  /* Foto */
+  .photo-wrap {
+    width: 88px;
+    height: 108px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid #e0e0e0;
+    background: #ddd;
+    flex-shrink: 0;
+    margin-top: 10px;
+  }
+  .photo-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+  /* Placeholder silhouette quando não há foto real */
+  .photo-placeholder {
+    width: 100%; height: 100%;
+    display: grid; place-items: center;
+    background: linear-gradient(160deg, #c8d8d7 0%, #a8c4c2 100%);
+  }
+  .photo-placeholder svg { width: 52px; opacity: .5; }
+
+  /* Nome */
+  .person-name {
+    font-size: .95rem;
+    font-weight: 700;
+    color: var(--teal-dark);
+    line-height: 1.2;
+    margin-top: 4px;
+    max-width: 180px;
+  }
+
+  /* Dados */
+  .data-row {
+    font-family: 'DM Mono', monospace;
+    font-size: .6rem;
+    color: var(--text);
+    line-height: 1.7;
+  }
+  .data-row span { color: var(--muted); font-size: .55rem; }
+
+  /* Curso / Instituição */
+  .course-block {
+    margin-top: auto;
+    padding: 8px 10px;
+    background: var(--teal-light);
+    border-left: 3px solid var(--teal);
+    border-radius: 4px;
+  }
+  .course-block .course { font-size: .62rem; font-weight: 700; color: var(--teal-dark); text-transform: uppercase; letter-spacing: .4px; }
+  .course-block .inst   { font-size: .58rem; color: var(--muted); font-weight: 600; margin-top: 1px; }
+
+  /* Rodapé da frente */
+  .front-footer {
+    display: flex;
+    align-items: stretch;
+    border-top: 1px solid #e8e8e8;
+    margin-top: 10px;
+  }
+  .validity-block {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8px 10px;
+  }
+  .validity-block .year-big {
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--teal);
+    line-height: 1;
+    letter-spacing: -2px;
+  }
+  .validity-block .valid-label {
+    font-size: .45rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    margin-top: 1px;
+  }
+  .code-qr-block {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px 8px 0;
+  }
+  .cod-block { text-align: right; }
+  .cod-label { font-size: .45rem; color: var(--muted); text-transform: uppercase; letter-spacing: .4px; }
+  .cod-value { font-family: 'DM Mono', monospace; font-size: .7rem; font-weight: 700; color: var(--text); }
+  .qr-placeholder {
+    width: 52px; height: 52px;
+    background: #1a1a1a;
+    border-radius: 4px;
+    display: grid; place-items: center;
+    padding: 4px;
+  }
+  .qr-placeholder svg { width: 100%; height: 100%; }
+
+  /* ABOFE logo */
+  .abofe-logo {
+    position: absolute;
+    bottom: 72px; right: 14px;
+    font-size: .55rem;
+    font-weight: 700;
+    color: var(--muted);
+    text-align: right;
+    line-height: 1.3;
+  }
+  .abofe-logo strong { color: var(--teal); font-size: .75rem; letter-spacing: -1px; }
+
+  /* ────────────────────────────────────────────
+     VERSO
+  ──────────────────────────────────────────── */
+  .back-inner {
+    width: 100%; height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #f8f9f8;
+    padding: 20px 18px;
+    gap: 14px;
+    position: relative;
+  }
+
+  .back-cie-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    border-bottom: 1.5px solid #e0e0e0;
+  }
+  .back-cie-row .cie-logo { font-size: 2.2rem; }
+  .back-cie-row .cie-title { font-size: .48rem; text-align: left; }
+
+  .benefit-badge {
+    background: var(--teal);
+    color: #fff;
+    border-radius: 12px;
+    padding: 10px 14px;
+    text-align: center;
+  }
+  .benefit-badge .pct {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -2px;
+  }
+  .benefit-badge .desc {
+    font-size: .62rem;
+    font-weight: 300;
+    margin-top: 2px;
+    opacity: .9;
+  }
+
+  .venues-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .venue-pill {
+    background: var(--teal-light);
+    color: var(--teal-dark);
+    font-size: .62rem;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 99px;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+  }
+
+  .legal-block {
+    background: #f0f0f0;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: .56rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .legal-block strong { color: var(--text); }
+
+  .validador-block {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border: 1.5px solid #d0e8e7;
+    border-radius: 10px;
+  }
+  .validador-block .vbox { flex: 1; }
+  .validador-block .vtitle { font-size: .6rem; font-weight: 700; color: var(--teal-dark); text-transform: uppercase; letter-spacing: .4px; }
+  .validador-block .vurl   { font-family: 'DM Mono', monospace; font-size: .62rem; color: var(--teal); font-weight: 500; }
+  .barcode-icon {
+    width: 36px; height: 36px;
+    background: var(--teal);
+    border-radius: 6px;
+    display: grid; place-items: center;
+    flex-shrink: 0;
+  }
+  .barcode-icon svg { width: 22px; height: 22px; fill: #fff; }
+
+  .sac-row {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-top: 10px;
+    border-top: 1px solid #e8e8e8;
+  }
+  .sac-icon {
+    width: 28px; height: 28px;
+    background: var(--teal-light);
+    border-radius: 50%;
+    display: grid; place-items: center;
+  }
+  .sac-icon svg { width: 15px; height: 15px; fill: var(--teal); }
+  .sac-info .sac-label { font-size: .5rem; color: var(--muted); text-transform: uppercase; letter-spacing: .4px; }
+  .sac-info .sac-num   { font-family: 'DM Mono', monospace; font-size: .8rem; font-weight: 700; color: var(--text); }
+
+  .territory-note {
+    font-size: .5rem;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.5;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+  }
+
+  /* ── RENOVE BUTTON ── */
+  .renove-btn {
+    width: var(--card-w);
+    padding: 16px 0;
+    background: var(--teal);
+    color: #fff;
+    font-family: 'Sora', sans-serif;
+    font-size: .95rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    letter-spacing: .3px;
+    box-shadow: 0 6px 20px rgba(26,158,150,.35);
+    transition: transform .15s, box-shadow .15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .renove-btn:active { transform: scale(.97); box-shadow: 0 3px 10px rgba(26,158,150,.25); }
+
+  /* ── BOTTOM NAV ── */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: #fff;
+    border-top: 1px solid #e8e8e8;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0 16px;
+    z-index: 10;
+  }
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-size: .62rem;
+    color: var(--muted);
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .nav-item.active { color: var(--teal); }
+  .nav-item svg { width: 22px; height: 22px; }
+  .nav-item.active svg path, .nav-item.active svg rect { stroke: var(--teal); }
+
+  /* Tap ripple feedback */
+  .card-scene::after {
+    content: '';
+    position: absolute; inset: 0;
+    border-radius: 20px;
+    background: rgba(26,158,150,0);
+    transition: background .2s;
+    pointer-events: none;
+  }
+  .card-scene:active::after {
+    background: rgba(26,158,150,.06);
+  }
+
+  /* Entrance animation */
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(32px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .scene-wrap { animation: slideUp .5s .1s both; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="app-header">
+  <div class="header-text">
+    <h1>Olá, Vanderson!</h1>
+    <p>Sua carteira estudantil</p>
+  </div>
+  <button class="menu-btn" aria-label="Menu">
+    <span></span>
+  </button>
+</header>
+
+<!-- MAIN -->
+<main class="scene-wrap">
+
+  <p class="hint" id="hint">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16V4m0 0L3 8m4-4 4 4M17 8v12m0 0 4-4m-4 4-4-4"/></svg>
+    Toque na carteira para virar
+  </p>
+
+  <!-- FLIP CARD -->
+  <div class="card-scene" id="card" role="button" aria-label="Virar carteirinha" tabindex="0">
+    <div class="card-inner">
+
+      <!-- ── FRENTE ── -->
+      <div class="card-face card-front">
+        <div class="front-inner">
+
+          <!-- Faixa lateral -->
+          <div class="side-deco">
+            <div class="side-deco-top"></div>
+            <div class="side-deco-mid"></div>
+            <div class="side-deco-bottom"></div>
+          </div>
+
+          <!-- Corpo -->
+          <div class="front-body">
+
+            <!-- Logo CIE canto direito -->
+            <div class="cie-header">
+              <span class="cie-logo">CIE</span>
+              <span class="cie-title">Carteira de<br>Identificação<br>Estudantil</span>
+            </div>
+
+            <!-- Foto -->
+            <div class="photo-wrap">
+              <div class="photo-placeholder">
+                <!-- silhueta genérica -->
+                <svg viewBox="0 0 60 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="30" cy="22" r="14" fill="rgba(255,255,255,.6)"/>
+                  <path d="M2 72c0-15.464 12.536-28 28-28s28 12.536 28 28" fill="rgba(255,255,255,.6)"/>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Nome -->
+            <p class="person-name">Vanderson Henrique dos Santos</p>
+
+            <!-- Dados -->
+            <div class="data-row">
+              <span>CPF/CIN:</span> 032.658.931-70<br>
+              <span>Nasc.:</span> 23/10/1964
+            </div>
+
+            <!-- Curso -->
+            <div class="course-block">
+              <p class="course">Análise e Desenvolvimento de Sistemas</p>
+              <p class="inst">UNIASSELVI</p>
+            </div>
+
+            <!-- ABOFE -->
+            <div class="abofe-logo">
+              <strong>AB◆FE</strong><br>Assoc. Brasileira<br>de Foco Estudantil
+            </div>
+
+            <!-- Rodapé: validade + código + QR -->
+            <div class="front-footer">
+              <div class="validity-block">
+                <span class="year-big">2026</span>
+                <span class="valid-label">Válido até 31/03/2026</span>
+              </div>
+              <div class="code-qr-block">
+                <div class="cod-block">
+                  <div class="cod-label">Cód. Uso / CIE</div>
+                  <div class="cod-value">4C7564B9</div>
+                </div>
+                <!-- QR code SVG simplificado -->
+                <div class="qr-placeholder">
+                  <svg viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="9" height="9" fill="white"/>
+                    <rect x="1" y="1" width="7" height="7" fill="#1a1a1a"/>
+                    <rect x="2" y="2" width="5" height="5" fill="white"/>
+                    <rect x="3" y="3" width="3" height="3" fill="#1a1a1a"/>
+                    <rect x="12" width="9" height="9" fill="white"/>
+                    <rect x="13" y="1" width="7" height="7" fill="#1a1a1a"/>
+                    <rect x="14" y="2" width="5" height="5" fill="white"/>
+                    <rect x="15" y="3" width="3" height="3" fill="#1a1a1a"/>
+                    <rect y="12" width="9" height="9" fill="white"/>
+                    <rect x="1" y="13" width="7" height="7" fill="#1a1a1a"/>
+                    <rect x="2" y="14" width="5" height="5" fill="white"/>
+                    <rect x="3" y="15" width="3" height="3" fill="#1a1a1a"/>
+                    <rect x="12" y="12" width="3" height="3" fill="white"/>
+                    <rect x="16" y="12" width="3" height="3" fill="white"/>
+                    <rect x="12" y="16" width="3" height="3" fill="white"/>
+                    <rect x="16" y="16" width="3" height="3" fill="white"/>
+                    <rect x="14" y="14" width="1" height="1" fill="white"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /front-body -->
+        </div><!-- /front-inner -->
+      </div><!-- /card-front -->
+
+      <!-- ── VERSO ── -->
+      <div class="card-face card-back">
+        <div class="back-inner">
+
+          <!-- Header do verso -->
+          <div class="back-cie-row">
+            <div>
+              <span class="cie-logo">CIE</span>
+              <span class="cie-title" style="color:var(--teal);font-size:.48rem;font-weight:600;display:block;text-transform:uppercase;letter-spacing:.5px;line-height:1.4">Carteira de<br>Identificação<br>Estudantil</span>
+            </div>
+            <div style="text-align:right;font-size:.55rem;font-weight:700;color:var(--muted)">
+              <strong style="color:var(--teal);font-size:.8rem;letter-spacing:-1px">AB◆FE</strong><br>
+              Assoc. Brasileira<br>de Foco Estudantil
+            </div>
+          </div>
+
+          <!-- Badge de benefício -->
+          <div class="benefit-badge">
+            <div class="pct">50%</div>
+            <div class="desc">Meia Entrada em eventos culturais e de entretenimento</div>
+          </div>
+
+          <!-- Locais aceitos -->
+          <div class="venues-list">
+            <span class="venue-pill">🎭 Teatro</span>
+            <span class="venue-pill">🎬 Cinema</span>
+            <span class="venue-pill">🏟️ Estádios</span>
+            <span class="venue-pill">🎵 Shows</span>
+            <span class="venue-pill">+ Eventos</span>
+          </div>
+
+          <!-- Base legal -->
+          <div class="legal-block">
+            <strong>Lei Federal nº 12.933/2013</strong>, também conhecida como Lei Meia-Entrada, garante o benefício do pagamento de Meia Entrada para estudantes. Documento padronizado conforme a Lei 12.321/2013 · Válido em todo o Território Nacional até março do ano seguinte.
+          </div>
+
+          <!-- Validador -->
+          <div class="validador-block">
+            <div class="vbox">
+              <div class="vtitle">Validado no</div>
+              <div class="vurl">validador.org.br</div>
+            </div>
+            <div class="barcode-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="2" height="16"/><rect x="5" y="4" width="1" height="16"/><rect x="7" y="4" width="2" height="16"/><rect x="11" y="4" width="1" height="16"/><rect x="13" y="4" width="2" height="16"/><rect x="17" y="4" width="1" height="16"/><rect x="19" y="4" width="3" height="16"/></svg>
+            </div>
+          </div>
+
+          <!-- SAC -->
+          <div class="sac-row">
+            <div class="sac-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.32 6.32l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" stroke="var(--teal)" fill="none"/></svg>
+            </div>
+            <div class="sac-info">
+              <div class="sac-label">SAC</div>
+              <div class="sac-num">(31) 9 9327-1886</div>
+            </div>
+          </div>
+
+          <p class="territory-note">Documento válido em todo o Território Nacional</p>
+
+        </div>
+      </div><!-- /card-back -->
+
+    </div><!-- /card-inner -->
+  </div><!-- /card-scene -->
+
+  <button class="renove-btn">Renove Agora</button>
+
+</main>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <div class="nav-item active">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="var(--teal)" stroke-width="2" fill="none"/>
+      <polyline points="9,22 9,12 15,12 15,22" stroke="var(--teal)" stroke-width="2"/>
+    </svg>
+    Início
+  </div>
+  <div class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="#9ca3af" stroke-width="2"/>
+      <circle cx="9" cy="7" r="4" stroke="#9ca3af" stroke-width="2"/>
+      <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="#9ca3af" stroke-width="2"/>
+    </svg>
+    Indique
+  </div>
+  <div class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="5" width="20" height="14" rx="2" stroke="#9ca3af" stroke-width="2"/>
+      <path d="M2 10h20" stroke="#9ca3af" stroke-width="2"/>
+    </svg>
+    Carteiras
+  </div>
+  <div class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0" stroke="#9ca3af" stroke-width="2"/>
+    </svg>
+    Avisos
+  </div>
+</nav>
+
+<script>
+  const card = document.getElementById('card');
+  const hint = document.getElementById('hint');
+  let flipped = false;
+
+  function flip() {
+    flipped = !flipped;
+    card.classList.toggle('flipped', flipped);
+    hint.classList.toggle('hidden', true);
+  }
+
+  card.addEventListener('click', flip);
+  card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); } });
+</script>
+</body>
+</html>
