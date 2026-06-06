@@ -1,11 +1,17 @@
 @if (card(); as studentCard) {
-  <app-header [greetingName]="studentCard.greetingName" />
+  <button
+    class="fullscreen-btn"
+    type="button"
+    [attr.aria-label]="fullscreenActive() ? 'Sair da tela cheia' : 'Abrir em tela cheia'"
+    [attr.title]="fullscreenActive() ? 'Sair da tela cheia' : 'Tela cheia'"
+    (click)="toggleFullscreen()"
+  >
+    <span aria-hidden="true"></span>
+  </button>
 
   <main class="scene-wrap">
     <app-student-card [card]="studentCard" />
   </main>
-
-  <app-bottom-nav />
 } @else {
   <main class="not-found" aria-live="polite">
     <h1>Carteirinha nao encontrada</h1>

@@ -17,7 +17,6 @@ export class StudentCardComponent {
   readonly card = input.required<StudentCardData>();
   readonly flipped = signal(false);
   readonly displayedBack = signal(false);
-  readonly hintHidden = signal(false);
   readonly turning = signal(false);
 
   flip(): void {
@@ -27,7 +26,6 @@ export class StudentCardComponent {
 
     const nextSide = !this.flipped();
     this.turning.set(true);
-    this.hintHidden.set(true);
     this.flipped.set(nextSide);
     window.setTimeout(() => this.displayedBack.set(nextSide), 380);
     window.setTimeout(() => this.turning.set(false), 760);

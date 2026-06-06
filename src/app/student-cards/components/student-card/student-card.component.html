@@ -1,14 +1,8 @@
-<p class="hint" [class.hidden]="hintHidden()" id="flip-hint">
-  <span aria-hidden="true">↕</span>
-  Toque na carteira para ver o verso
-</p>
-
 <button
   class="card-scene"
   type="button"
   [class.flipped]="flipped()"
   [class.turning]="turning()"
-  aria-describedby="flip-hint"
   [attr.aria-pressed]="flipped()"
   [attr.aria-label]="flipped() ? 'Mostrar frente da carteirinha' : 'Mostrar verso da carteirinha'"
   (click)="flip()"

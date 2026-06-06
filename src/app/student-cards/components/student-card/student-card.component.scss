@@ -1,26 +1,8 @@
 :host {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 28px;
-}
-
-.hint {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.72rem;
-  font-weight: 400;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  opacity: 1;
-  transition: opacity 0.4s;
-
-  &.hidden {
-    opacity: 0;
-  }
+  display: grid;
+  width: var(--card-h);
+  height: var(--card-w);
+  place-items: center;
 }
 
 .card-scene {
@@ -32,6 +14,8 @@
   -webkit-tap-highlight-color: transparent;
   border: 0;
   background: transparent;
+  transform: rotate(90deg);
+  transform-origin: center center;
 
   &:focus-visible {
     outline: 3px solid color-mix(in srgb, var(--teal), #fff 20%);

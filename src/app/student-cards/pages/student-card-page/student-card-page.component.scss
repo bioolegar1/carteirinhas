@@ -1,9 +1,66 @@
 .scene-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: calc(100svh - 120px);
-  padding: 48px 0 calc(96px + env(safe-area-inset-bottom));
+  display: grid;
+  min-height: 100svh;
+  place-items: center;
+  padding: calc(16px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom));
+}
+
+.fullscreen-btn {
+  position: fixed;
+  top: calc(14px + env(safe-area-inset-top));
+  right: calc(14px + env(safe-area-inset-right));
+  z-index: 10;
+  display: grid;
+  width: 46px;
+  height: 46px;
+  cursor: pointer;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 12px;
+  background: rgba(7, 36, 38, 0.72);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
+  color: #fff;
+  backdrop-filter: blur(14px);
+
+  &:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--yellow), #fff 15%);
+    outline-offset: 4px;
+  }
+
+  span,
+  span::before,
+  span::after {
+    width: 18px;
+    height: 18px;
+    border-color: currentColor;
+  }
+
+  span {
+    position: relative;
+    display: block;
+    border: 2px solid currentColor;
+    border-radius: 2px;
+  }
+
+  span::before,
+  span::after {
+    position: absolute;
+    content: "";
+  }
+
+  span::before {
+    top: -7px;
+    left: -7px;
+    border-top: 2px solid currentColor;
+    border-left: 2px solid currentColor;
+  }
+
+  span::after {
+    right: -7px;
+    bottom: -7px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+  }
 }
 
 .not-found {
