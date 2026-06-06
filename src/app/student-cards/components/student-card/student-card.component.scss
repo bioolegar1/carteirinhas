@@ -1,11 +1,14 @@
 :host {
-  display: grid;
+  position: relative;
+  display: block;
   width: var(--card-h);
   height: var(--card-w);
-  place-items: center;
 }
 
 .card-scene {
+  position: absolute;
+  top: 50%;
+  left: 50%;
   width: var(--card-w);
   height: var(--card-h);
   padding: 0;
@@ -14,7 +17,7 @@
   -webkit-tap-highlight-color: transparent;
   border: 0;
   background: transparent;
-  transform: rotate(90deg);
+  transform: translate(-50%, -50%) rotate(90deg);
   transform-origin: center center;
 
   &:focus-visible {

@@ -149,7 +149,7 @@
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.66);
   color: var(--muted);
-  font-size: clamp(0.5rem, 2vw, 0.56rem);
+  font-size: clamp(0.38rem, calc(var(--card-w) * 0.016), 0.56rem);
   line-height: 1.6;
 }
 
@@ -246,72 +246,4 @@
   line-height: 1.5;
   text-align: center;
   text-transform: uppercase;
-}
-
-@media (max-width: 440px) {
-  .back-inner {
-    grid-template-columns: minmax(0, 1fr) minmax(126px, 0.85fr);
-    gap: 7px 8px;
-    padding: 12px;
-  }
-
-  .cie-logo {
-    font-size: 1.55rem;
-  }
-
-  .cie-title {
-    font-size: 0.35rem;
-  }
-
-  .issuer {
-    max-width: 78px;
-    font-size: 0.4rem;
-
-    strong {
-      font-size: 0.58rem;
-    }
-  }
-
-  .benefit-badge {
-    padding: 7px 8px;
-  }
-
-  .pct {
-    font-size: 1.45rem;
-  }
-
-  .desc,
-  .venue-pill,
-  .vtitle,
-  .vurl {
-    font-size: 0.48rem;
-  }
-
-  .legal-block {
-    padding: 7px 8px;
-    font-size: 0.43rem;
-    line-height: 1.35;
-  }
-
-  .validador-block {
-    gap: 7px;
-    padding: 7px 8px;
-  }
-
-  .barcode-icon {
-    width: 28px;
-    height: 28px;
-  }
-
-  .sac-row {
-    padding-top: 6px;
-  }
-
-  .sac-num {
-    font-size: 0.58rem;
-  }
-
-  .territory-note {
-    font-size: 0.4rem;
-  }
 }

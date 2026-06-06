@@ -1,7 +1,9 @@
 .scene-wrap {
   display: grid;
+  width: 100svw;
   min-height: 100svh;
   place-items: center;
+  overflow: hidden;
   padding: calc(16px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom));
 }
 
