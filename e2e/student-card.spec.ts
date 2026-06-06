@@ -26,6 +26,11 @@ const validCards = [
     name: 'RODRIGO DE SOUSA GONÇALVES',
     code: '483861C4',
   },
+  {
+    id: 'exemplo',
+    name: 'MATEUS HENRIQUE ALMEIDA',
+    code: 'EXEMPLO1',
+  },
 ] as const;
 
 for (const card of validCards) {
