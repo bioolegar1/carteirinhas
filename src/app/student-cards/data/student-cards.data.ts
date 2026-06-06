@@ -9,7 +9,7 @@ const sharedBenefit = {
 };
 
 const sharedIssuer = {
-  acronym: 'ABOFE',
+  acronym: 'ABAFE',
   name: 'Assoc. Brasileira de Foco Estudantil',
 };
 
