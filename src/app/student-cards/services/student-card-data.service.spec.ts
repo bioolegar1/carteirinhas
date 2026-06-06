@@ -11,7 +11,7 @@ describe('StudentCardDataService', () => {
   });
 
   it('should return all predefined cards', () => {
-    expect(service.getCards().length).toBe(4);
+    expect(service.getCards().length).toBe(5);
   });
 
   it('should find a card by ID', () => {

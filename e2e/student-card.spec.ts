@@ -21,6 +21,11 @@ const validCards = [
     name: 'Sthefany Munike M G Santos',
     code: '482961C4',
   },
+  {
+    id: 'rodrigo',
+    name: 'RODRIGO DE SOUSA GONÇALVES',
+    code: '483861C4',
+  },
 ] as const;
 
 for (const card of validCards) {
