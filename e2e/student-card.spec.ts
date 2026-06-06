@@ -16,6 +16,11 @@ const validCards = [
     name: 'Cadastro Predefinido Tres',
     code: 'CAD00003',
   },
+  {
+    id: 'sthefany-monike',
+    name: 'Sthefany Munike M G Santos',
+    code: '482961C4',
+  },
 ] as const;
 
 for (const card of validCards) {
