@@ -17,7 +17,7 @@ const validCards = [
     code: 'CAD00003',
   },
   {
-    id: 'sthefany-monike',
+    id: 'sthefany',
     name: 'Sthefany Munike M G Santos',
     code: '482961C4',
   },

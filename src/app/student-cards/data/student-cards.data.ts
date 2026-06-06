@@ -73,7 +73,7 @@ export const STUDENT_CARDS: readonly StudentCardData[] = [
     supportPhone: '(31) 9 9327-1886',
   },
   {
-    id: 'sthefany-monike',
+    id: 'sthefany',
     greetingName: 'Sthefany',
     fullName: 'Sthefany Munike M G Santos',
     documentLabel: 'CPF/CIN',
