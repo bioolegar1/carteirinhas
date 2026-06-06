@@ -33,7 +33,7 @@ describe('STUDENT_CARDS', () => {
     expect(STUDENT_CARDS[0].photoUrl).toBe('/assets/photos/propria-carteirinha.jpg');
     expect(STUDENT_CARDS[1].photoUrl).toBeUndefined();
     expect(STUDENT_CARDS[2].photoUrl).toBeUndefined();
-    expect(STUDENT_CARDS[3].photoUrl).toBe('/assets/photos/FOTO-STHEFANY.jpg');
+    expect(STUDENT_CARDS[3].photoUrl).toBe('/assets/photos/FOTO-STHEFANY.png');
   });
 
   it('should configure QR code images for cards with provided assets', () => {

@@ -84,7 +84,7 @@ export const STUDENT_CARDS: readonly StudentCardData[] = [
     year: '2026',
     validUntil: '06/12/2026',
     cieCode: '482961C4',
-    photoUrl: '/assets/photos/FOTO-STHEFANY.jpg',
+    photoUrl: '/assets/photos/FOTO-STHEFANY.png',
     qrImageUrl: '/assets/qrs/QR-STHEFANY.png',
     issuer: sharedIssuer,
     validator: sharedValidator,
