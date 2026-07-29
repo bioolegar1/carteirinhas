@@ -2,7 +2,7 @@ import { STUDENT_CARDS } from './student-cards.data';
 
 describe('STUDENT_CARDS', () => {
   it('should define the expected predefined cards', () => {
-    expect(STUDENT_CARDS.length).toBe(7);
+    expect(STUDENT_CARDS.length).toBe(8);
   });
 
   it('should define unique stable IDs', () => {
@@ -36,7 +36,8 @@ describe('STUDENT_CARDS', () => {
     expect(STUDENT_CARDS[3].photoUrl).toBe('/assets/photos/FOTO-STHEFANY-correta.png');
     expect(STUDENT_CARDS[4].photoUrl).toBe('/assets/photos/RODRIGO.jpg');
     expect(STUDENT_CARDS[5].photoUrl).toBe('/assets/photos/ricardo.jpeg');
-    expect(STUDENT_CARDS[6].photoUrl).toBe('/assets/photos/exemplo.avif');
+    expect(STUDENT_CARDS[6].photoUrl).toBe('/assets/photos/jenifer.jpeg');
+    expect(STUDENT_CARDS[7].photoUrl).toBe('/assets/photos/exemplo.avif');
   });
 
   it('should configure QR code images for cards with provided assets', () => {
@@ -44,6 +45,7 @@ describe('STUDENT_CARDS', () => {
     expect(STUDENT_CARDS[3].qrImageUrl).toBe('/assets/qrs/QR-STHEFANY.png');
     expect(STUDENT_CARDS[4].qrImageUrl).toBe('/assets/qrs/rodrigo.png');
     expect(STUDENT_CARDS[5].qrImageUrl).toBeUndefined();
-    expect(STUDENT_CARDS[6].qrImageUrl).toBe('/assets/qrs/exemplo-qr-code.png');
+    expect(STUDENT_CARDS[6].qrImageUrl).toBeUndefined();
+    expect(STUDENT_CARDS[7].qrImageUrl).toBe('/assets/qrs/exemplo-qr-code.png');
   });
 });
