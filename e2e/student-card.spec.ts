@@ -27,6 +27,11 @@ const validCards = [
     code: '483861C4',
   },
   {
+    id: 'ricardo',
+    name: 'Ricardo Olimpio Barros Cavaleiro de Macedo Filho',
+    code: '484F61C4',
+  },
+  {
     id: 'exemplo',
     name: 'MATEUS HENRIQUE ALMEIDA',
     code: 'EXEMPLO1',
