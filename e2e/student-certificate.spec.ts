@@ -35,4 +35,15 @@ test.describe('Student Certificate Page', () => {
     await expect(page.getByText('Jenifer Gomes')).toHaveCount(0);
     await expect(page.getByText('DOCUMENTO VÁLIDO')).toHaveCount(0);
   });
+
+  test('allows scrolling to bottom to see all legal notes and footer', async ({ page }) => {
+    await page.goto('/certificado?id=ricardo');
+
+    const scrollHeight = await page.evaluate(() => document.documentElement.scrollHeight);
+    const clientHeight = await page.evaluate(() => document.documentElement.clientHeight);
+    expect(scrollHeight).toBeGreaterThan(clientHeight);
+
+    await page.locator('.cert-footer').scrollIntoViewIfNeeded();
+    await expect(page.locator('.cert-footer')).toBeInViewport();
+  });
 });

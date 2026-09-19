@@ -30,7 +30,12 @@ body {
 }
 
 body {
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  &:has(app-student-certificate-page) {
+    background-color: #f1f5f9;
+  }
 }
 
 button,
