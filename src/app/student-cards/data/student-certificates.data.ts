@@ -23,7 +23,7 @@ Vpux02kbWuGe
 export const STUDENT_CERTIFICATES: Readonly<Record<string, StudentCertificateData>> = {
   ricardo: {
     studentId: 'ricardo',
-    authHash: '7f347123ae1e758fb2d9-cert-484f61c4-1780449475225',
+    authHash: '7f347123ae1e758fb2d9-cert-486c61c4-1780449475225',
     certificateKey: ABAFE_ICP_BRASIL_CERT_KEY,
     issuedAt: '02/06/2026, 22:17:55',
     city: 'Brasília',
@@ -31,7 +31,7 @@ export const STUDENT_CERTIFICATES: Readonly<Record<string, StudentCertificateDat
   },
   jenifer: {
     studentId: 'jenifer',
-    authHash: '7f347123ae1e758fb2d9-cert-485a61c4-1780449475226',
+    authHash: '7f347123ae1e758fb2d9-cert-487b61c4-1780449475226',
     certificateKey: ABAFE_ICP_BRASIL_CERT_KEY,
     issuedAt: '02/06/2026, 22:17:55',
     city: 'Brasília',

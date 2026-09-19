@@ -21,7 +21,7 @@ describe('StudentCertificateDataService', () => {
     const result = service.getCertificateByStudentId('ricardo');
     expect(result).not.toBeNull();
     expect(result?.card.fullName).toContain('Ricardo Olimpio');
-    expect(result?.card.cieCode).toBe('484F61C4');
+    expect(result?.card.cieCode).toBe('486C61C4');
     expect(result?.certificate.studentId).toBe('ricardo');
     expect(result?.certificate.certificateKey).toContain('-----BEGIN CERTIFICATE-----');
   });
@@ -30,7 +30,7 @@ describe('StudentCertificateDataService', () => {
     const result = service.getCertificateByStudentId('jenifer');
     expect(result).not.toBeNull();
     expect(result?.card.fullName).toBe('Jenifer Gomes de Sousa');
-    expect(result?.card.cieCode).toBe('485A61C4');
+    expect(result?.card.cieCode).toBe('487B61C4');
     expect(result?.certificate.studentId).toBe('jenifer');
     expect(result?.certificate.certificateKey).toContain('-----BEGIN CERTIFICATE-----');
   });

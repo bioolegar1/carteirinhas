@@ -6,9 +6,10 @@ test.describe('Student Certificate Page', () => {
 
     await expect(page.getByRole('heading', { name: 'DOCUMENTO VÁLIDO' })).toBeVisible();
     await expect(page.locator('.student-name')).toHaveText('Ricardo Olimpio Barros Cavaleiro de Macedo Filho');
-    await expect(page.getByText('484F61C4')).toBeVisible();
+    await expect(page.getByText('486C61C4')).toBeVisible();
     await expect(page.getByText('Engenharia da Computação').first()).toBeVisible();
     await expect(page.getByText('Faculdade Estácio de Sá').first()).toBeVisible();
+    await expect(page.getByAltText('QR Code de autenticidade de Ricardo Olimpio Barros Cavaleiro de Macedo Filho')).toBeVisible();
     await expect(page.getByText('-----BEGIN CERTIFICATE-----')).toBeVisible();
     await expect(page.getByRole('button', { name: 'Clique aqui para baixar o certificado' })).toBeVisible();
     await expect(page.getByText('Conformidade com Legislação')).toBeVisible();
@@ -19,7 +20,8 @@ test.describe('Student Certificate Page', () => {
 
     await expect(page.getByRole('heading', { name: 'DOCUMENTO VÁLIDO' })).toBeVisible();
     await expect(page.locator('.student-name')).toHaveText('Jenifer Gomes de Sousa');
-    await expect(page.getByText('485A61C4')).toBeVisible();
+    await expect(page.getByText('487B61C4')).toBeVisible();
+    await expect(page.getByAltText('QR Code de autenticidade de Jenifer Gomes de Sousa')).toBeVisible();
     await expect(page.getByText('Direito').first()).toBeVisible();
     await expect(page.getByText('Estácio de Sá').first()).toBeVisible();
     await expect(page.getByText('-----BEGIN CERTIFICATE-----')).toBeVisible();

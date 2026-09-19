@@ -29,12 +29,12 @@ const validCards = [
   {
     id: 'ricardo',
     name: 'Ricardo Olimpio Barros Cavaleiro de Macedo Filho',
-    code: '484F61C4',
+    code: '486C61C4',
   },
   {
     id: 'jenifer',
     name: 'Jenifer Gomes de Sousa',
-    code: '485A61C4',
+    code: '487B61C4',
   },
   {
     id: 'exemplo',

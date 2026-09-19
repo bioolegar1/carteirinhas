@@ -42,7 +42,7 @@ describe('StudentCertificatePageComponent', () => {
     expect(nameEl.nativeElement.textContent).toContain('Ricardo Olimpio');
 
     const cieEl = fixture.debugElement.query(By.css('.cie-code'));
-    expect(cieEl.nativeElement.textContent).toBe('484F61C4');
+    expect(cieEl.nativeElement.textContent).toBe('486C61C4');
 
     const pemEl = fixture.debugElement.query(By.css('.pem-block code'));
     expect(pemEl.nativeElement.textContent).toContain('-----BEGIN CERTIFICATE-----');
@@ -55,7 +55,7 @@ describe('StudentCertificatePageComponent', () => {
     expect(nameEl.nativeElement.textContent).toBe('Jenifer Gomes de Sousa');
 
     const cieEl = fixture.debugElement.query(By.css('.cie-code'));
-    expect(cieEl.nativeElement.textContent).toBe('485A61C4');
+    expect(cieEl.nativeElement.textContent).toBe('487B61C4');
   });
 
   it('should render not-found state when id is missing or invalid', async () => {

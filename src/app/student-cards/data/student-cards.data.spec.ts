@@ -44,8 +44,8 @@ describe('STUDENT_CARDS', () => {
     expect(STUDENT_CARDS[0].qrImageUrl).toBe('/assets/qrs/qrcode01.jpg');
     expect(STUDENT_CARDS[3].qrImageUrl).toBe('/assets/qrs/QR-STHEFANY.png');
     expect(STUDENT_CARDS[4].qrImageUrl).toBe('/assets/qrs/rodrigo.png');
-    expect(STUDENT_CARDS[5].qrImageUrl).toBeUndefined();
-    expect(STUDENT_CARDS[6].qrImageUrl).toBeUndefined();
+    expect(STUDENT_CARDS[5].qrImageUrl).toBe('/assets/qrs/ricardo-qrcode.png');
+    expect(STUDENT_CARDS[6].qrImageUrl).toBe('/assets/qrs/jenifer-qrcode.png');
     expect(STUDENT_CARDS[7].qrImageUrl).toBe('/assets/qrs/exemplo-qr-code.png');
   });
 });
