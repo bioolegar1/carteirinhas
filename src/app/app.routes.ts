@@ -8,6 +8,12 @@ export const routes: Routes = [
         .then((component) => component.StudentCardPageComponent),
   },
   {
+    path: 'certificado',
+    loadComponent: () =>
+      import('./student-cards/pages/student-certificate-page/student-certificate-page.component')
+        .then((component) => component.StudentCertificatePageComponent),
+  },
+  {
     path: '**',
     redirectTo: '',
   },

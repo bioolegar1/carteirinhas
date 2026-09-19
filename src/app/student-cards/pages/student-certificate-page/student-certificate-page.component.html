@@ -1,0 +1,137 @@
+@if (certificateView(); as view) {
+  <main class="certificate-page-wrap">
+    <div class="certificate-document" id="certificate-print-area">
+      <!-- Header / Banner -->
+      <header class="status-banner">
+        <h1>DOCUMENTO VÁLIDO</h1>
+      </header>
+
+      <!-- Content Area -->
+      <div class="cert-body">
+        <p class="attestation-text">
+          <strong>{{ view.card.issuer.acronym }} - {{ view.card.issuer.name }}</strong> atesta que 
+          <strong>{{ view.card.fullName }}</strong> é estudante e está regularmente matriculado(a) em 
+          <strong>{{ view.card.course }}</strong> na instituição <strong>{{ view.card.institution }}</strong>, 
+          tendo direito à emissão da CIE conforme legislação vigente. O estudante será mantido no cadastro ativo 
+          enquanto permanecer vinculado à instituição e em dia com suas obrigações com a Associação.
+        </p>
+
+        <!-- Student ID Card Info Block -->
+        <section class="student-card-info" aria-label="Dados do Estudante">
+          <div class="photo-column">
+            <div class="photo-box">
+              @if (view.card.photoUrl && !photoFailed()) {
+                <img [src]="view.card.photoUrl" [alt]="'Foto de ' + view.card.fullName" (error)="onPhotoError()">
+              } @else {
+                <div class="photo-placeholder" aria-label="Foto não informada">
+                  <span class="user-avatar-icon" aria-hidden="true">👤</span>
+                </div>
+              }
+            </div>
+            <div class="cie-box">
+              <span class="cie-label">Cód. Uso:</span>
+              <span class="cie-code">{{ view.card.cieCode }}</span>
+            </div>
+          </div>
+
+          <div class="details-column">
+            <h2 class="student-name">{{ view.card.fullName }}</h2>
+
+            <div class="info-grid">
+              <div class="info-field">
+                <span class="field-label">Instituição:</span>
+                <span class="field-value">{{ view.card.institution }}</span>
+              </div>
+
+              <div class="info-field">
+                <span class="field-label">Curso:</span>
+                <span class="field-value">{{ view.card.course }}</span>
+              </div>
+
+              <div class="info-field">
+                <span class="field-label">{{ view.card.documentLabel }}:</span>
+                <span class="field-value">{{ view.card.documentNumber }}</span>
+              </div>
+
+              <div class="info-field">
+                <span class="field-label">Data de Nascimento:</span>
+                <span class="field-value">{{ view.card.birthDate }}</span>
+              </div>
+
+              <div class="info-field full-width">
+                <span class="field-label">Emissor:</span>
+                <span class="field-value">{{ view.card.issuer.acronym }} - {{ view.card.issuer.name }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="qr-column">
+            <div class="qr-box">
+              @if (view.card.qrImageUrl) {
+                <img [src]="view.card.qrImageUrl" [alt]="'QR Code de autenticidade de ' + view.card.fullName">
+              } @else {
+                <div class="qr-placeholder" aria-label="QR Code"></div>
+              }
+            </div>
+          </div>
+        </section>
+
+        <!-- Certificate PEM Key Block -->
+        <section class="cert-key-section" aria-label="Chave do Certificado Digital">
+          <h3 class="section-title">Chave do Certificado:</h3>
+          <pre class="pem-block"><code>{{ view.certificate.certificateKey }}</code></pre>
+        </section>
+
+        <!-- Print Action -->
+        <div class="action-container no-print">
+          <button class="download-cert-btn" type="button" (click)="printCertificate()">
+            Clique aqui para baixar o certificado
+          </button>
+        </div>
+
+        <!-- Legal Compliance -->
+        <section class="legal-section">
+          <h3 class="section-title">Conformidade com Legislação</h3>
+          <p>
+            A emissão da Carteira de Identidade Estudantil (CIE) segue os critérios e requisitos estabelecidos 
+            pela Lei nº 12.933, de 26 de dezembro de 2013, que regulamenta a meia-entrada para estudantes 
+            em eventos de cultura e lazer, bem como pelas normas de padronização nacional de identidade estudantil vigentes.
+          </p>
+
+          <h4 class="sub-title">Validade e Verificabilidade:</h4>
+          <p>Esta declaração é parte integral e inseparável da Carteira de Identidade Estudantil emitida, podendo ser verificada:</p>
+          <ul class="verificability-list">
+            <li>Por consulta ao QR Code presente na carteira física ou digital</li>
+            <li>Pelo acesso ao link/portal de validação da Associação</li>
+            <li>Por apresentação deste PDF assinado digitalmente</li>
+            <li>Pelo contato direto com a Associação nos dados informados.</li>
+          </ul>
+
+          <h4 class="sub-title">Observações Importantes:</h4>
+          <p>
+            Este documento foi assinado com certificado digital ICP-Brasil (Tipo A-1 ou A-3) para máxima 
+            validade jurídica. A alteração ou falsificação desta declaração é crime conforme legislação penal 
+            aplicável. A associação é responsável pela veracidade das informações aqui declaradas. 
+            Recomenda-se guarda deste arquivo em formato PDF protegido contra edições.
+          </p>
+        </section>
+
+        <!-- Signature Footer -->
+        <footer class="cert-footer">
+          <p class="legal-framework">
+            Assinado digitalmente por {{ view.card.issuer.acronym }} - {{ view.card.issuer.name }}, 
+            conforme {{ view.certificate.legalFramework }}
+          </p>
+          <p class="timestamp-city">
+            Cidade/Data/Hora: {{ view.certificate.city }}, {{ view.certificate.issuedAt }}
+          </p>
+        </footer>
+      </div>
+    </div>
+  </main>
+} @else {
+  <main class="not-found" aria-live="polite">
+    <h1>Certificado não encontrado</h1>
+    <p>O identificador de certificado informado não foi localizado em nossa base de autenticidade.</p>
+  </main>
+}
