@@ -2,7 +2,7 @@ import { STUDENT_CARDS } from './student-cards.data';
 
 describe('STUDENT_CARDS', () => {
   it('should define the expected predefined cards', () => {
-    expect(STUDENT_CARDS.length).toBe(8);
+    expect(STUDENT_CARDS.length).toBe(10);
   });
 
   it('should define unique stable IDs', () => {
@@ -38,6 +38,8 @@ describe('STUDENT_CARDS', () => {
     expect(STUDENT_CARDS[5].photoUrl).toBe('/assets/photos/ricardo.jpeg');
     expect(STUDENT_CARDS[6].photoUrl).toBe('/assets/photos/jenifer.jpeg');
     expect(STUDENT_CARDS[7].photoUrl).toBe('/assets/photos/exemplo.avif');
+    expect(STUDENT_CARDS[8].photoUrl).toBe('/assets/photos/gloria.jpg');
+    expect(STUDENT_CARDS[9].photoUrl).toBe('/assets/photos/gustavo.jpg');
   });
 
   it('should configure QR code images for cards with provided assets', () => {

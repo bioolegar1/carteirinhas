@@ -1,9 +1,11 @@
 import { STUDENT_CERTIFICATES } from './student-certificates.data';
 
 describe('STUDENT_CERTIFICATES', () => {
-  it('should include certificate entries for ricardo and jenifer', () => {
+  it('should include certificate entries for ricardo, jenifer, gloria and gustavo', () => {
     expect(STUDENT_CERTIFICATES['ricardo']).toBeDefined();
     expect(STUDENT_CERTIFICATES['jenifer']).toBeDefined();
+    expect(STUDENT_CERTIFICATES['gloria']).toBeDefined();
+    expect(STUDENT_CERTIFICATES['gustavo']).toBeDefined();
   });
 
   it('should contain valid PEM format delimiters in certificateKey', () => {
@@ -17,7 +19,7 @@ describe('STUDENT_CERTIFICATES', () => {
   });
 
   it('should contain all required metadata fields populated', () => {
-    for (const id of ['ricardo', 'jenifer']) {
+    for (const id of ['ricardo', 'jenifer', 'gloria', 'gustavo']) {
       const cert = STUDENT_CERTIFICATES[id];
       expect(cert.studentId).toBe(id);
       expect(cert.authHash.length).toBeGreaterThan(10);

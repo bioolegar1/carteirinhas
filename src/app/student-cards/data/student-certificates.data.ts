@@ -37,4 +37,20 @@ export const STUDENT_CERTIFICATES: Readonly<Record<string, StudentCertificateDat
     city: 'Brasília',
     legalFramework: 'Lei 14.063/2020 e Medida Provisória nº 2.200-2/2001',
   },
+  gloria: {
+    studentId: 'gloria',
+    authHash: '7f347123ae1e758fb2d9-cert-488a61c4-1780449475227',
+    certificateKey: ABAFE_ICP_BRASIL_CERT_KEY,
+    issuedAt: '02/06/2026, 22:17:55',
+    city: 'Brasília',
+    legalFramework: 'Lei 14.063/2020 e Medida Provisória nº 2.200-2/2001',
+  },
+  gustavo: {
+    studentId: 'gustavo',
+    authHash: '7f347123ae1e758fb2d9-cert-489961c4-1780449475228',
+    certificateKey: ABAFE_ICP_BRASIL_CERT_KEY,
+    issuedAt: '02/06/2026, 22:17:55',
+    city: 'Brasília',
+    legalFramework: 'Lei 14.063/2020 e Medida Provisória nº 2.200-2/2001',
+  },
 };
