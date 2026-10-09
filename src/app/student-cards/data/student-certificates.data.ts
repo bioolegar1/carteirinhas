@@ -39,7 +39,7 @@ export const STUDENT_CERTIFICATES: Readonly<Record<string, StudentCertificateDat
   },
   gloria: {
     studentId: 'gloria',
-    authHash: '7f347123ae1e758fb2d9-cert-488a61c4-1780449475227',
+    authHash: '4bf796fcf7bd31ff4109-cert-de490b67-1780449475227',
     certificateKey: ABAFE_ICP_BRASIL_CERT_KEY,
     issuedAt: '02/06/2026, 22:17:55',
     city: 'Brasília',
@@ -47,7 +47,7 @@ export const STUDENT_CERTIFICATES: Readonly<Record<string, StudentCertificateDat
   },
   gustavo: {
     studentId: 'gustavo',
-    authHash: '7f347123ae1e758fb2d9-cert-489961c4-1780449475228',
+    authHash: '35bea6146f47bea17ebd-cert-61f75cc9-1780449475228',
     certificateKey: ABAFE_ICP_BRASIL_CERT_KEY,
     issuedAt: '02/06/2026, 22:17:55',
     city: 'Brasília',

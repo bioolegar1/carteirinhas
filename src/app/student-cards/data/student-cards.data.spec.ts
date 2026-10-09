@@ -49,5 +49,7 @@ describe('STUDENT_CARDS', () => {
     expect(STUDENT_CARDS[5].qrImageUrl).toBe('/assets/qrs/ricardo-qrcode.png');
     expect(STUDENT_CARDS[6].qrImageUrl).toBe('/assets/qrs/jenifer-qrcode.png');
     expect(STUDENT_CARDS[7].qrImageUrl).toBe('/assets/qrs/exemplo-qr-code.png');
+    expect(STUDENT_CARDS[8].qrImageUrl).toBe('/assets/qrs/qrcodegloria.png');
+    expect(STUDENT_CARDS[9].qrImageUrl).toBe('/assets/qrs/qrcodegustavo.png');
   });
 });
